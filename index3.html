@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+    
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+    
+    .space {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background: radial-gradient(circle at center, #000016 0%, #000000 100%);
+    }
+    
+    .black-hole-system {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .gravitational-lensing {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.2) 15%,
+        rgba(255, 165, 0, 0.3) 20%,
+        rgba(255, 69, 0, 0.4) 25%,
+        rgba(255, 20, 147, 0.3) 30%,
+        transparent 35%
+      );
+      filter: blur(8px);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .accretion-disk {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at center,
+        #ffffff 15%,
+        #ff1a1a 20%,
+        #ff4500 30%,
+        #ff8c00 40%,
+        #ffd700 50%,
+        #ff1493 60%,
+        rgba(255, 20, 147, 0.8) 70%,
+        rgba(255, 69, 0, 0.6) 80%,
+        transparent 90%
+      );
+      transform: perspective(500px) rotateX(90deg);
+      box-shadow: 
+        0 0 100px 20px rgba(255, 69, 0, 0.6),
+        0 0 150px 30px rgba(255, 20, 147, 0.4);
+      animation: rotate 20s linear infinite;
+    }
+
+    .event-horizon {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(
+        circle at center,
+        #000000 40%,
+        rgba(255, 69, 0, 0.4) 60%,
+        rgba(255, 20, 147, 0.3) 80%,
+        transparent 100%
+      );
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        0 0 50px 10px rgba(255, 69, 0, 0.5),
+        0 0 80px 20px rgba(0, 0, 0, 0.9);
+      animation: glow 4s ease-in-out infinite;
+    }
+    
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 1s infinite;
+    }
+
+    .distant-galaxy {
+      position: absolute;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+    
+    .orbiting-text {
+      position: absolute;
+      color: #ff3300;
+      font-size: 28px;
+      font-family: 'Special Elite', monospace;
+      left: 50%;
+      top: 50%;
+      transform-origin: 0 200px;
+      text-shadow: 0 0 15px rgba(255, 51, 0, 0.8);
+    }
+    
+    @keyframes rotate {
+      from { transform: perspective(500px) rotateX(90deg) rotate(0deg); }
+      to { transform: perspective(500px) rotateX(90deg) rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    @keyframes orbit1 {
+      from { transform: rotate(0deg) translateY(-200px) rotate(0deg); }
+      to { transform: rotate(360deg) translateY(-200px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit2 {
+      from { transform: rotate(120deg) translateY(-240px) rotate(-120deg); }
+      to { transform: rotate(480deg) translateY(-240px) rotate(-480deg); }
+    }
+    
+    @keyframes orbit3 {
+      from { transform: rotate(240deg) translateY(-280px) rotate(-240deg); }
+      to { transform: rotate(600deg) translateY(-280px) rotate(-600deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="space">
+    <div class="black-hole-system">
+      <div class="gravitational-lensing"></div>
+      <div class="accretion-disk"></div>
+      <div class="event-horizon"></div>
+    </div>
+    <div class="orbiting-text" style="animation: orbit1 12s linear infinite;">Ilse</div>
+    <div class="orbiting-text" style="animation: orbit2 15s linear infinite;">Ilse</div>
+    <div class="orbiting-text" style="animation: orbit3 18s linear infinite;">Ilse</div>
+  </div>
+
+  <script>
+    function createStars() {
+      const space = document.querySelector('.space');
+      // Create stars
+      for (let i = 0; i < 300; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 2 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDelay = Math.random() * 1 + 's';
+        space.appendChild(star);
+      }
+      
+      // Create distant galaxies
+      for (let i = 0; i < 20; i++) {
+        const galaxy = document.createElement('div');
+        galaxy.className = 'distant-galaxy';
+        const size = Math.random() * 50 + 20;
+        galaxy.style.width = size + 'px';
+        galaxy.style.height = size + 'px';
+        galaxy.style.left = Math.random() * 100 + 'vw';
+        galaxy.style.top = Math.random() * 100 + 'vh';
+        galaxy.style.opacity = Math.random() * 0.3 + 0.1;
+        space.appendChild(galaxy);
+      }
+    }
+    
+    createStars();
+  </script>
+</body>
+</html>
